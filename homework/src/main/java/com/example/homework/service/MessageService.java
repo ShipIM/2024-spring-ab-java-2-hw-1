@@ -21,7 +21,7 @@ public class MessageService {
         return repository.getReferenceById(id);
     }
 
-    public void addMessage(Message message) {
-        repository.save(message);
+    public Message addMessage(Message message) {
+        return repository.save(message);
     }
 }

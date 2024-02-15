@@ -1,0 +1,20 @@
+type ResponseMessage {
+    id: Int!,
+    author: String!,
+    text: String!,
+    creationDate: String!
+}
+
+input CreateMessage {
+    author: String!,
+    text: String!
+}
+
+type Query {
+    getMessages: [ResponseMessage]
+    getMessage(id: Int!): ResponseMessage
+}
+
+type Mutation {
+    createMessage(message: CreateMessage!): ResponseMessage
+}

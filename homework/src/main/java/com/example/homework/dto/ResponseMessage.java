@@ -7,10 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MessageResponseDto {
+public class ResponseMessage {
 
     private Long id;
     private String author;
     private String text;
+    private String creationDate;
 
 }

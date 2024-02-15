@@ -1,37 +1,36 @@
 package com.example.homework.controller;
 
-import com.example.homework.dto.MessageCreateDto;
-import com.example.homework.dto.MessageResponseDto;
+import com.example.homework.dto.CreateMessage;
+import com.example.homework.dto.ResponseMessage;
 import com.example.homework.dto.mapper.MessageMapper;
 import com.example.homework.service.MessageService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/messages")
+@Controller
 @RequiredArgsConstructor
 public class MessageController {
 
     private final MessageService messageService;
     private final MessageMapper mapper;
 
-    @GetMapping
-    public List<MessageResponseDto> getMessages() {
+    @QueryMapping
+    public List<ResponseMessage> getMessages() {
         return mapper.toResponseList(messageService.getMessages());
     }
 
-    @GetMapping("/{id}")
-    public MessageResponseDto getMessage(@PathVariable("id") long id) {
+    @QueryMapping
+    public ResponseMessage getMessage(@Argument long id) {
         return mapper.toResponse(messageService.getMessage(id));
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addMessage(@Valid @RequestBody MessageCreateDto message) {
-        messageService.addMessage(mapper.toMessage(message));
+    @MutationMapping
+    public ResponseMessage createMessage(@Argument CreateMessage message) {
+        return mapper.toResponse(messageService.addMessage(mapper.toMessage(message)));
     }
 }
