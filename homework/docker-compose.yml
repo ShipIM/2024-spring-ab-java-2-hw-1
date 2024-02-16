@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+  graphql:
+    image: 'homework:v1'
+    container_name: 'java-graphql'
+    ports:
+      - "8080:8080"
+    depends_on:
+      - 'postgres'
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://java-postgres:5432/homework'
   postgres:
     image: 'postgres:latest'
     container_name: 'java-postgres'
