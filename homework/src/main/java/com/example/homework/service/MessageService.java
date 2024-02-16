@@ -2,6 +2,7 @@ package com.example.homework.service;
 
 import com.example.homework.entity.Message;
 import com.example.homework.repository.MessageRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,11 @@ public class MessageService {
     }
 
     public Message getMessage(long id) {
-        return repository.getReferenceById(id);
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("There is no message with such an id"));
     }
 
-    public Message addMessage(Message message) {
+    public Message createMessage(Message message) {
         return repository.save(message);
     }
 }

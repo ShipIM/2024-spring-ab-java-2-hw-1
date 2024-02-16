@@ -31,6 +31,6 @@ public class MessageController {
 
     @MutationMapping
     public ResponseMessage createMessage(@Argument CreateMessage message) {
-        return mapper.toResponse(messageService.addMessage(mapper.toMessage(message)));
+        return mapper.toResponse(messageService.createMessage(mapper.toMessage(message)));
     }
 }
