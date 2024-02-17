@@ -23,7 +23,7 @@
             </column>
         </createTable>
         <rollback>
-            <dropTable tableName="person_jn"/>
+            <dropTable tableName="messages"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>
