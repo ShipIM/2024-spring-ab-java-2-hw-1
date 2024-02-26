@@ -1,6 +1,6 @@
 package com.example.homework.service;
 
-import com.example.homework.config.MinioProperties;
+import com.example.homework.config.minio.MinioProperties;
 import com.example.homework.model.entity.mongo.Operation;
 import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import io.minio.GetObjectArgs;
@@ -8,7 +8,6 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.compress.utils.IOUtils;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,7 +41,7 @@ public class MinioService {
 
         operationService.logOperation(
                 Operation.builder()
-                        .message(String.format("Saved image: %s", reference))
+                        .message(String.format("Image saved to database: %s", reference))
                         .time(LocalDateTime.now())
                         .type(OperationType.WRITE)
                         .build()
@@ -51,21 +50,9 @@ public class MinioService {
         return reference;
     }
 
-    public byte[] loggedDownload(String reference) throws Exception {
-        operationService.logOperation(
-                Operation.builder()
-                        .message(String.format("Downloaded image: %s", reference))
-                        .time(LocalDateTime.now())
-                        .type(OperationType.READ)
-                        .build()
-        );
-
-        return download(reference);
-    }
-
     @Cacheable(value = "MinioService::download", key = "#reference")
     public byte[] download(String reference) throws Exception {
-        return IOUtils.toByteArray(
+        byte[] contents = IOUtils.toByteArray(
                 client.getObject(
                         GetObjectArgs.builder()
                                 .bucket(properties.getBucket())
@@ -73,6 +60,15 @@ public class MinioService {
                                 .build()
                 )
         );
+
+        operationService.logOperation(
+                Operation.builder()
+                        .message(String.format("Image downloaded from database: %s", reference))
+                        .time(LocalDateTime.now())
+                        .type(OperationType.READ).build()
+        );
+
+        return contents;
     }
 
 }

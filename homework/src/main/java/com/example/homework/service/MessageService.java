@@ -2,12 +2,12 @@ package com.example.homework.service;
 
 import com.example.homework.model.entity.jpa.Image;
 import com.example.homework.model.entity.jpa.Message;
+import com.example.homework.model.entity.mongo.Operation;
+import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import com.example.homework.repository.jpa.ImageRepository;
 import com.example.homework.repository.jpa.MessageRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import com.example.homework.model.entity.mongo.Operation;
-import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,41 +26,33 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
 
-    public List<Message> loggedGetMessages() {
+    @Cacheable(value = "MessageService::getMessages")
+    public List<Message> getMessages() {
         operationService.logOperation(
                 Operation.builder()
-                        .message("Read all messages")
+                        .message("Messages read from database")
                         .time(LocalDateTime.now())
                         .type(OperationType.READ)
                         .build()
         );
 
-        return getMessages();
-    }
-
-    @Cacheable(value = "MessageService::getMessages")
-    public List<Message> getMessages() {
         return messageRepository.findAll();
     }
 
-    public Message loggedGetMessage(long id) {
-        Message message = getMessage(id);
+    @Cacheable(value = "MessageService::getMessage", key = "#id")
+    public Message getMessage(long id) {
+        Message message = messageRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("There is no message with such an id"));
 
         operationService.logOperation(
                 Operation.builder()
-                        .message(String.format("Read message: %s", message.getText()))
+                        .message(String.format("Message read from database: %s", message.getText()))
                         .time(LocalDateTime.now())
                         .type(OperationType.READ)
                         .build()
         );
 
         return message;
-    }
-
-    @Cacheable(value = "MessageService::getMessage", key = "#id")
-    public Message getMessage(long id) {
-        return messageRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("There is no message with such an id"));
     }
 
     @CacheEvict(value = "MessageService::getMessages", allEntries = true)
@@ -81,7 +73,7 @@ public class MessageService {
 
         operationService.logOperation(
                 Operation.builder()
-                        .message(String.format("Saved message: %s", message.getText()))
+                        .message(String.format("Message saved to database: %s", message.getText()))
                         .time(LocalDateTime.now())
                         .type(OperationType.WRITE)
                         .build()

@@ -33,7 +33,7 @@ public class Message implements Serializable {
     @CreatedDate
     private LocalDateTime creationDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "messages_images",
             joinColumns = { @JoinColumn(name = "message_id") },
             inverseJoinColumns = { @JoinColumn(name = "image_id") })

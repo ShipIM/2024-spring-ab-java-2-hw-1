@@ -32,7 +32,7 @@ public class AccessController {
 
     @GetMapping("/{reference}")
     public byte[] download(@PathVariable String reference) throws Exception {
-        return minioService.loggedDownload(reference);
+        return minioService.download(reference);
     }
 
 }

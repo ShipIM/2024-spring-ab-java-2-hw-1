@@ -1,5 +1,6 @@
-package com.example.homework.config;
+package com.example.homework.config.minio;
 
+import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import org.springframework.context.annotation.Bean;
@@ -20,11 +21,17 @@ public class MinioConfiguration {
                         properties.isSecure())
                 .build();
 
-        client.makeBucket(
-                MakeBucketArgs.builder()
+        if (!client.bucketExists(
+                BucketExistsArgs.builder()
                         .bucket(properties.getBucket())
-                        .build()
-        );
+                        .build())) {
+
+            client.makeBucket(
+                    MakeBucketArgs.builder()
+                            .bucket(properties.getBucket())
+                            .build()
+            );
+        }
 
         return client;
     }

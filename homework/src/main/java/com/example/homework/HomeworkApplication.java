@@ -1,6 +1,6 @@
 package com.example.homework;
 
-import com.example.homework.config.MinioProperties;
+import com.example.homework.config.minio.MinioProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -21,12 +21,12 @@ public class MessageController {
 
     @QueryMapping
     public List<ResponseMessage> getMessages() {
-        return mapper.toResponseList(messageService.loggedGetMessages());
+        return mapper.toResponseList(messageService.getMessages());
     }
 
     @QueryMapping
     public ResponseMessage getMessage(@Argument long id) {
-        return mapper.toResponse(messageService.loggedGetMessage(id));
+        return mapper.toResponse(messageService.getMessage(id));
     }
 
     @MutationMapping

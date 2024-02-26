@@ -19,12 +19,12 @@ public class ImageController {
 
     @QueryMapping
     public List<ResponseImage> getMetas() {
-        return mapper.toResponseList(service.loggedGetAllMeta());
+        return mapper.toResponseList(service.getAllMeta());
     }
 
     @QueryMapping
     public ResponseImage getMeta(@Argument String reference) {
-        return mapper.toResponse(service.loggedGetMeta(reference));
+        return mapper.toResponse(service.getMeta(reference));
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.homework.config;
+package com.example.homework.config.minio;
 
 import lombok.Getter;
 import lombok.Setter;
