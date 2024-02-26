@@ -16,6 +16,9 @@ services:
       - 'redis'
     environment:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://java-postgres:5432/homework'
+      - 'SPRING_DATA_REDIS_HOST=redis'
+      - 'SPRING_DATA_MONGODB_HOST=mongo'
+      - 'MINIO_URL=http://minio:9000'
   postgres:
     image: 'postgres:latest'
     container_name: 'java-postgres'
@@ -38,7 +41,7 @@ services:
     command: server /data --console-address :9001
   mongodb:
     image: mongo:latest
-    container_name: mongodb
+    container_name: mongo
     ports:
       - "27017:27017"
     environment:
@@ -49,4 +52,4 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
-    command: redis-server --save 20 1 --logLevel warning --requirepass YXNkZmFzZGY=
+    command: redis-server --save 20 1 --logLevel warning --requirepass password

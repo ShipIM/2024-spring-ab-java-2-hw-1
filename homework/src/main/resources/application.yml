@@ -29,7 +29,7 @@ spring:
     redis:
       host: localhost
       port: 6379
-      password: YXNkZmFzZGY=
+      password: password
   cache:
     type: redis
     cache-names: redis-cache
