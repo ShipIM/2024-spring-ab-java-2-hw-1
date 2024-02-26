@@ -25,7 +25,7 @@ public class OperationService {
         repository.save(operation);
     }
 
-    @Cacheable(value = "OperationService::getOperations", key = "{ #filter?.type, #filter?.type }")
+    @Cacheable(value = "OperationService::getOperations", key = "{ #filter?.type, #filter?.time }")
     public List<Operation> getOperations(OperationFilter filter) {
         BooleanBuilder builder = new BooleanBuilder();
 
