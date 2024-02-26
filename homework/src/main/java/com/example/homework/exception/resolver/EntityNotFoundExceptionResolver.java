@@ -1,4 +1,4 @@
-package com.example.homework.exception;
+package com.example.homework.exception.resolver;
 
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
