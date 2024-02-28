@@ -59,7 +59,7 @@ public class MessageService {
     public Message createMessage(Message message) {
         List<Image> images = message.getImages();
 
-        if (!Objects.isNull(images)) {
+        if (Objects.nonNull(images)) {
             images = imageRepository.findAllByReferenceIn(images.stream()
                     .map(Image::getReference)
                     .collect(Collectors.toList()));
