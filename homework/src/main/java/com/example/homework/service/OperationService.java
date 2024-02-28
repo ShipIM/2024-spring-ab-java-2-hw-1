@@ -29,12 +29,12 @@ public class OperationService {
     public List<Operation> getOperations(OperationFilter filter) {
         BooleanBuilder builder = new BooleanBuilder();
 
-        if (!Objects.isNull(filter)) {
+        if (Objects.nonNull(filter)) {
             if (!Objects.isNull(filter.getType())) {
                 builder.and(QOperation.operation.type.eq(filter.getType()));
             }
 
-            if (!Objects.isNull(filter.getTime())) {
+            if (!Objects.nonNull(filter.getTime())) {
                 builder.and(QOperation.operation.time.between(
                         filter.getTime().atStartOfDay(),
                         filter.getTime().plusDays(1).atStartOfDay()));
