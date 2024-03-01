@@ -36,8 +36,6 @@ public class EntityNotFoundExceptionResolver extends DataFetcherExceptionResolve
                     .errorType(ErrorType.BAD_REQUEST)
                     .build();
         } else if (ex instanceof DataIntegrityViolationException) {
-            System.out.println(ex.getMessage());
-
             String message = violationsMap.entrySet().stream()
                     .filter(entry -> ex.getMessage().contains(entry.getKey()))
                     .map(Map.Entry::getValue)
