@@ -24,7 +24,6 @@ type ResponseOperation {
 }
 
 input CreateMessage {
-    author: String!,
     text: String!,
     images: [String]
 }

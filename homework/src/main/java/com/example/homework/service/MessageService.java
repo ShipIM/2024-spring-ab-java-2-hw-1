@@ -6,6 +6,7 @@ import com.example.homework.model.entity.mongo.Operation;
 import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import com.example.homework.repository.jpa.ImageRepository;
 import com.example.homework.repository.jpa.MessageRepository;
+import com.example.homework.repository.jpa.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -25,6 +26,7 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
+    private final UserRepository userRepository;
 
     @Cacheable(value = "MessageService::getMessages")
     public List<Message> getMessages() {
@@ -70,6 +72,9 @@ public class MessageService {
 
             message.setImages(images);
         }
+
+        message.setAuthor(userRepository.findByUsername(message.getAuthor().getUsername())
+                .orElseThrow(() -> new EntityNotFoundException("There is no user with that name")));
 
         operationService.logOperation(
                 Operation.builder()

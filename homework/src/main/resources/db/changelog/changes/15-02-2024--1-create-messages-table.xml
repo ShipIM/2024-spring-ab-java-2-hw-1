@@ -9,7 +9,7 @@
                 <constraints
                         primaryKey="true"/>
             </column>
-            <column name="author" type="VARCHAR">
+            <column name="author_id" type="BIGINT">
                 <constraints
                         nullable="false"/>
             </column>

@@ -23,8 +23,9 @@ public class Message implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "author")
-    private String author;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
+    private User author;
 
     @Column(name = "text")
     private String text;

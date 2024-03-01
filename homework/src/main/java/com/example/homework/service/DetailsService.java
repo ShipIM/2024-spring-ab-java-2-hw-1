@@ -15,8 +15,8 @@ public class DetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByUsername(email)
-                .orElseThrow(() -> new EntityNotFoundException("Пользователя с таким email не существует."));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("There is no user with that name"));
     }
 }
