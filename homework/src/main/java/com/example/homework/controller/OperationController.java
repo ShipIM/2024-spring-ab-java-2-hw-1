@@ -7,6 +7,7 @@ import com.example.homework.service.OperationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class OperationController {
     private final OperationMapper mapper;
 
     @QueryMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<ResponseOperation> getOperations(@Argument OperationFilter filter) {
         return mapper.toResponseList(service.getOperations(filter));
     }

@@ -6,4 +6,6 @@
     <include file="/db/changelog/changes/15-02-2024--1-create-messages-table.xml"/>
     <include file="/db/changelog/changes/22-02-2024--1-create-images-table.xml"/>
     <include file="/db/changelog/changes/24-02-2024--1-create-messages-images-table.xml"/>
+    <include file="/db/changelog/changes/01-03-2024--1-create-users-table.xml"/>
+    <include file="/db/changelog/changes/01-03-2024--2-create-admin.xml"/>
 </databaseChangeLog>

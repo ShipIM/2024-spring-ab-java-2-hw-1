@@ -29,14 +29,27 @@ input CreateMessage {
     images: [String]
 }
 
+input AuthenticateUser {
+    username: String!,
+    password: String!
+}
+
+type ResponseUser {
+    username: String,
+    token: String,
+    role: String
+}
+
 type Query {
     getMessages: [ResponseMessage],
     getMessage(id: Int!): ResponseMessage,
     getMetas: [ResponseImage],
     getMeta(reference: String!): ResponseImage,
     getOperations(filter: OperationFilter): [ResponseOperation]
+    authenticate(details: AuthenticateUser!): ResponseUser
 }
 
 type Mutation {
     createMessage(message: CreateMessage!): ResponseMessage
+    register(details: AuthenticateUser!): ResponseUser
 }
