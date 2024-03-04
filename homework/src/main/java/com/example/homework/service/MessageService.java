@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class MessageService {
 
     private final OperationService operationService;
-
     private final MessageRepository messageRepository;
     private final ImageRepository imageRepository;
     private final UserRepository userRepository;

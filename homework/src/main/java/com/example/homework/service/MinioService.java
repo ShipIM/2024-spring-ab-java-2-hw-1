@@ -22,7 +22,6 @@ import java.util.UUID;
 public class MinioService {
 
     private final OperationService operationService;
-
     private final MinioClient client;
     private final MinioProperties properties;
 

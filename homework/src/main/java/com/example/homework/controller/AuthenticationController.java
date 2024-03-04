@@ -1,11 +1,10 @@
 package com.example.homework.controller;
 
+import com.example.homework.dto.jwt.ResponseJwt;
 import com.example.homework.dto.mapper.UserMapper;
 import com.example.homework.dto.user.AuthenticateUser;
-import com.example.homework.dto.user.ResponseUser;
 import com.example.homework.model.entity.jpa.User;
 import com.example.homework.service.AuthenticationService;
-import com.example.homework.service.JwtService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -18,35 +17,37 @@ import org.springframework.stereotype.Controller;
 public class AuthenticationController {
 
     private final AuthenticationService service;
-    private final JwtService jwtService;
     private final UserMapper userMapper;
 
     @MutationMapping
-    public ResponseUser register(@Argument @Valid AuthenticateUser details) {
+    public ResponseJwt register(@Argument @Valid AuthenticateUser details) {
         User user = userMapper.mapToUser(details);
 
-        user = service.register(user);
-
-        var jwtToken = jwtService.generateToken(user);
-
-        ResponseUser authDto = userMapper.mapToResponse(user);
-        authDto.setToken(jwtToken);
-
-        return authDto;
+        return service.register(user);
     }
 
     @QueryMapping
-    public ResponseUser authenticate(@Argument @Valid AuthenticateUser details) {
+    public ResponseJwt authenticate(@Argument @Valid AuthenticateUser details) {
         User user = userMapper.mapToUser(details);
 
-        user = service.authenticate(user);
+        return service.authenticate(user);
+    }
 
-        var jwtToken = jwtService.generateToken(user);
+    @MutationMapping
+    public ResponseJwt access(@Argument String refresh) {
+        return service.getAccessToken(refresh);
+    }
 
-        ResponseUser authDto = userMapper.mapToResponse(user);
-        authDto.setToken(jwtToken);
+    @MutationMapping
+    public ResponseJwt refresh(@Argument String refresh) {
+        return service.refreshToken(refresh);
+    }
 
-        return authDto;
+    @MutationMapping
+    public boolean eraseRefresh(@Argument String refresh) {
+        service.eraseRefreshToken(refresh);
+
+        return true;
     }
 
 }

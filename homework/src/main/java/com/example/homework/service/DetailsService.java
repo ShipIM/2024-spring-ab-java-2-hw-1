@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 public class DetailsService implements UserDetailsService {
 
     private final OperationService operationService;
-
     private final UserRepository userRepository;
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.homework.exception.resolver;
 
+import com.example.homework.exception.InvalidJwtException;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
 import graphql.schema.DataFetchingEnvironment;
@@ -45,6 +46,11 @@ public class EntityNotFoundExceptionResolver extends DataFetcherExceptionResolve
             return graphqlErrorBuilder
                     .message(message)
                     .errorType(ErrorType.BAD_REQUEST)
+                    .build();
+        } else if (ex instanceof InvalidJwtException) {
+            return graphqlErrorBuilder
+                    .message(ex.getMessage())
+                    .errorType(ErrorType.UNAUTHORIZED)
                     .build();
         } else {
             return null;

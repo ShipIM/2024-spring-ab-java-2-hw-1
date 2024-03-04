@@ -17,7 +17,6 @@ public class AccessController {
 
     private final ImageService imageService;
     private final MinioService minioService;
-
     private final ImageMapper mapper;
 
     @PostMapping

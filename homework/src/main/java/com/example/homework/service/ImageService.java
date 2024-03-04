@@ -18,7 +18,6 @@ import java.util.List;
 public class ImageService {
 
     private final OperationService operationService;
-
     private final ImageRepository imageRepository;
 
     @Cacheable(value = "ImageService::getMeta", key = "#image.reference")
