@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  graphql:
+    image: 'shipim/homework:1.0.0'
+    container_name: 'java-graphql'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - 'postgres'
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://java-postgres:5432/homework'
+  postgres:
+    image: 'postgres:latest'
+    container_name: 'java-postgres'
+    ports:
+      - "5432:5432"
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+      - 'POSTGRES_DB=homework'

@@ -1,0 +1,23 @@
+server:
+    port: 8080
+
+spring:
+    liquibase:
+        change-log: classpath:/db/changelog/changelog-master.xml
+    datasource:
+        url: jdbc:postgresql://localhost:5432/homework
+        username: postgres
+        password: postgres
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+        database: postgresql
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+    graphql:
+        graphiql:
+            enabled: true

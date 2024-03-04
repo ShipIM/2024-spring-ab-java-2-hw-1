@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application
+  labels:
+    tier: interaction
+    app: application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: interaction
+  template:
+    metadata:
+      labels:
+        tier: interaction
+    spec:
+      containers:
+        - name: application
+          image: shipim/homework:1.0.0
+          envFrom:
+            - configMapRef:
+                name: application-config
+          ports:
+            - containerPort: 8080
+              protocol: TCP
