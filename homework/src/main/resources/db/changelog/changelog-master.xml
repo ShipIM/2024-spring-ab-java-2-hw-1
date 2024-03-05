@@ -7,6 +7,12 @@
     <include file="/db/changelog/changes/22-02-2024--1-create-images-table.xml"/>
     <include file="/db/changelog/changes/24-02-2024--1-create-messages-images-table.xml"/>
     <include file="/db/changelog/changes/01-03-2024--1-create-users-table.xml"/>
-    <include file="/db/changelog/changes/01-03-2024--2-create-admin.xml"/>
     <include file="/db/changelog/changes/04-03-2024--1-create-refresh-table.xml"/>
+    <include file="/db/changelog/changes/05-03-2024--1-create-roles-table.xml"/>
+    <include file="/db/changelog/changes/05-03-2024--2-create-privileges-table.xml"/>
+    <include file="/db/changelog/changes/05-03-2024--3-create-users-roles-table.xml"/>
+    <include file="/db/changelog/changes/05-03-2024--4-create-roles-privileges-table.xml"/>
+    <include file="/db/changelog/changes/05-03-2024--5-create-privileges.xml"/>
+    <include file="/db/changelog/changes/05-03-2024--6-create-roles.xml"/>
+    <include file="/db/changelog/changes/05-03-2024--7-create-admin.xml"/>
 </databaseChangeLog>

@@ -7,25 +7,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
-@Table(name = "refresh")
+@Table(name = "privileges")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class RefreshToken implements Serializable {
+public class Privilege implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "token")
-    private String token;
+    @ManyToMany(mappedBy = "privileges", fetch = FetchType.EAGER)
+    private Collection<Role> roles;
 
 }

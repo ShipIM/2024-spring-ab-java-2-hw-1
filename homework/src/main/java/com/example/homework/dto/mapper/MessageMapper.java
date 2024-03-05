@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = { ImageMapper.class })
+@Mapper(componentModel = "spring", uses = {ImageMapper.class})
 public interface MessageMapper {
 
     Message toMessage(CreateMessage dto);

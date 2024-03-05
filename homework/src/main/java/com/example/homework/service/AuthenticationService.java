@@ -4,9 +4,7 @@ import com.example.homework.dto.jwt.ResponseJwt;
 import com.example.homework.exception.InvalidJwtException;
 import com.example.homework.model.entity.jpa.RefreshToken;
 import com.example.homework.model.entity.jpa.User;
-import com.example.homework.repository.jpa.UserRepository;
 import com.example.homework.utils.jwt.JwtUtils;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -24,13 +23,15 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final RefreshTokenService refreshTokenService;
-    private final UserRepository userRepository;
+    private final DetailsService detailsService;
+    private final RoleService roleService;
     private final JwtUtils jwtUtils;
 
     public ResponseJwt register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(List.of(roleService.getRole("ROLE_USER")));
 
-        user = userRepository.save(user);
+        user = detailsService.createUser(user);
         String access = generateAccessToken(user);
         String refresh = generateRefreshToken(user);
 
@@ -55,8 +56,7 @@ public class AuthenticationService {
         }
 
         String username = jwtUtils.extractRefreshUsername(refresh);
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("There is no user with that name"));
+        User user = (User) detailsService.loadUserByUsername(username);
         RefreshToken savedRefresh = refreshTokenService.getToken(user);
 
         if (!savedRefresh.getToken().equals(refresh)) {
@@ -74,8 +74,7 @@ public class AuthenticationService {
         }
 
         String username = jwtUtils.extractRefreshUsername(refresh);
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("There is no user with that name"));
+        User user = (User) detailsService.loadUserByUsername(username);
         RefreshToken savedRefresh = refreshTokenService.getToken(user);
 
         if (!savedRefresh.getToken().equals(refresh)) {

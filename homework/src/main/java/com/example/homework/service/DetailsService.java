@@ -38,4 +38,18 @@ public class DetailsService implements UserDetailsService {
         return user;
     }
 
+    public User createUser(User user) {
+        User saved = userRepository.save(user);
+
+        operationService.logOperation(
+                Operation.builder()
+                        .message(String.format("User saved to database: %s", user.getUsername()))
+                        .time(LocalDateTime.now())
+                        .type(OperationType.WRITE)
+                        .build()
+        );
+
+        return saved;
+    }
+
 }

@@ -1,7 +1,10 @@
 package com.example.homework.model.entity.jpa;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -36,8 +39,8 @@ public class Message implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "messages_images",
-            joinColumns = { @JoinColumn(name = "message_id") },
-            inverseJoinColumns = { @JoinColumn(name = "image_id") })
+            joinColumns = {@JoinColumn(name = "message_id")},
+            inverseJoinColumns = {@JoinColumn(name = "image_id")})
     private List<Image> images;
 
 }

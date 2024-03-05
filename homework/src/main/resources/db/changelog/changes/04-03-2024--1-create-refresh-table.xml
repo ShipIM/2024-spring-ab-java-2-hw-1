@@ -21,8 +21,5 @@
                         nullable="false"/>
             </column>
         </createTable>
-        <rollback>
-            <dropTable tableName="refresh"/>
-        </rollback>
     </changeSet>
 </databaseChangeLog>

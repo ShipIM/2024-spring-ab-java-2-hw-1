@@ -19,13 +19,13 @@ public class ImageController {
     private final ImageMapper mapper;
 
     @QueryMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('META_READ_PRIVILEGE')")
     public List<ResponseImage> getMetas() {
         return mapper.toResponseList(service.getAllMeta());
     }
 
     @QueryMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('META_READ_PRIVILEGE')")
     public ResponseImage getMeta(@Argument String reference) {
         return mapper.toResponse(service.getMeta(reference));
     }

@@ -20,7 +20,7 @@ public class OperationController {
     private final OperationMapper mapper;
 
     @QueryMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('OPERATION_READ_PRIVILEGE')")
     public List<ResponseOperation> getOperations(@Argument OperationFilter filter) {
         return mapper.toResponseList(service.getOperations(filter));
     }

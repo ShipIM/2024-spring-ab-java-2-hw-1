@@ -20,7 +20,7 @@ public class AccessController {
     private final ImageMapper mapper;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAuthority('IMAGE_UPLOAD_PRIVILEGE')")
     public ResponseImage upload(MultipartFile file) throws Exception {
         String reference = minioService.upload(file);
         Image image = mapper.toImage(file);
@@ -32,7 +32,7 @@ public class AccessController {
     }
 
     @GetMapping("/{reference}")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAuthority('IMAGE_DOWNLOAD_PRIVILEGE')")
     public byte[] download(@PathVariable String reference) throws Exception {
         return minioService.download(reference);
     }

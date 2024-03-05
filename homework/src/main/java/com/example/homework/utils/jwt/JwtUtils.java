@@ -67,7 +67,7 @@ public class JwtUtils {
     }
 
     public String extractAccessUsername(String token) {
-        return  extractUsername(token, access);
+        return extractUsername(token, access);
     }
 
     public String extractRefreshUsername(String token) {

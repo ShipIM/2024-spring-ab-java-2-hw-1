@@ -22,8 +22,5 @@
                         nullable="false"/>
             </column>
         </createTable>
-        <rollback>
-            <dropTable tableName="messages"/>
-        </rollback>
     </changeSet>
 </databaseChangeLog>
