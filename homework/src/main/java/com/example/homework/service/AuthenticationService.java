@@ -50,7 +50,20 @@ public class AuthenticationService {
     }
 
     public ResponseJwt getAccessToken(String refresh) {
-        String access = updateAccessToken(refresh);
+        if (!jwtUtils.isRefreshTokenValid(refresh)) {
+            throw new InvalidJwtException("Invalid refresh token");
+        }
+
+        String username = jwtUtils.extractRefreshUsername(refresh);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("There is no user with that name"));
+        RefreshToken savedRefresh = refreshTokenService.getToken(user);
+
+        if (!savedRefresh.getToken().equals(refresh)) {
+            throw new InvalidJwtException("Mismatch saved refresh token");
+        }
+
+        String access = generateAccessToken(user);
 
         return new ResponseJwt(access, refresh);
     }
@@ -92,23 +105,6 @@ public class AuthenticationService {
         refreshTokenService.setToken(user, token);
 
         return token;
-    }
-
-    private String updateAccessToken(String refresh) {
-        if (!jwtUtils.isRefreshTokenValid(refresh)) {
-            throw new InvalidJwtException("Invalid refresh token");
-        }
-
-        String username = jwtUtils.extractRefreshUsername(refresh);
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("There is no user with that name"));
-        RefreshToken savedRefresh = refreshTokenService.getToken(user);
-
-        if (!savedRefresh.getToken().equals(refresh)) {
-            throw new InvalidJwtException("Mismatch saved refresh token");
-        }
-
-        return generateAccessToken(user);
     }
 
 }
