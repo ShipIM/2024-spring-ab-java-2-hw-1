@@ -4,7 +4,7 @@ import com.example.homework.dto.jwt.ResponseJwt;
 import com.example.homework.dto.mapper.UserMapper;
 import com.example.homework.dto.user.AuthenticateUser;
 import com.example.homework.model.entity.jpa.User;
-import com.example.homework.service.AuthenticationService;
+import com.example.homework.service.impl.AuthenticationServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService service;
+    private final AuthenticationServiceImpl service;
     private final UserMapper userMapper;
 
     @MutationMapping

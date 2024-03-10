@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,8 @@ public class EntityNotFoundExceptionResolver extends DataFetcherExceptionResolve
     private final Map<String, String> violationsMap;
 
     @Override
-    protected GraphQLError resolveToSingleError(Throwable ex, DataFetchingEnvironment env) {
+    protected GraphQLError resolveToSingleError(@NotNull Throwable ex,
+                                                @NotNull DataFetchingEnvironment env) {
         GraphqlErrorBuilder<?> graphqlErrorBuilder = GraphqlErrorBuilder.newError()
                 .path(env.getExecutionStepInfo().getPath())
                 .location(env.getField().getSourceLocation());
