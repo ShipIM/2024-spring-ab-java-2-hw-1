@@ -50,22 +50,27 @@ public class AuditMethodBeanPostProcessor implements BeanPostProcessor {
 
         return Proxy.newProxyInstance(originalBeanClass.getClassLoader(),
                 ClassUtils.getAllInterfacesForClass(originalBeanClass), (proxy, method, args) -> {
-                    Method originalMethod = originalBeanClass.getMethod(method.getName(), method.getParameterTypes());
-                    if (originalMethod.isAnnotationPresent(Audit.class)) {
-                        Audit annotation = originalMethod.getAnnotation(Audit.class);
+                    try {
+                        Method originalMethod = originalBeanClass
+                                .getMethod(method.getName(), method.getParameterTypes());
+                        if (originalMethod.isAnnotationPresent(Audit.class)) {
+                            Audit annotation = originalMethod.getAnnotation(Audit.class);
 
-                        Object result = method.invoke(bean, args);
+                            Object result = method.invoke(bean, args);
 
-                        operationService.logOperation(Operation.builder()
-                                .message(annotation.message())
-                                .time(LocalDateTime.now())
-                                .type(annotation.type())
-                                .build());
+                            operationService.logOperation(Operation.builder()
+                                    .message(annotation.message())
+                                    .time(LocalDateTime.now())
+                                    .type(annotation.type())
+                                    .build());
 
-                        return result;
+                            return result;
+                        }
+
+                        return method.invoke(bean, args);
+                    } catch (Exception e) {
+                        throw e.getCause();
                     }
-
-                    return method.invoke(bean, args);
                 });
     }
 
