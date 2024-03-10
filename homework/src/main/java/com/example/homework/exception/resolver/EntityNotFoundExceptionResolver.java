@@ -4,6 +4,7 @@ import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
 import graphql.schema.DataFetchingEnvironment;
 import jakarta.persistence.EntityNotFoundException;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Component;
 public class EntityNotFoundExceptionResolver extends DataFetcherExceptionResolverAdapter {
 
     @Override
-    protected GraphQLError resolveToSingleError(Throwable ex, DataFetchingEnvironment env) {
+    protected GraphQLError resolveToSingleError(@NotNull Throwable ex,
+                                                @NotNull DataFetchingEnvironment env) {
         if (ex instanceof EntityNotFoundException) {
             return GraphqlErrorBuilder.newError()
                     .errorType(ErrorType.NOT_FOUND)

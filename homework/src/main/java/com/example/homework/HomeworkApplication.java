@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories
 @EnableJpaRepositories
 @EnableJpaAuditing
-@EnableCaching
+@EnableCaching(proxyTargetClass = true)
 public class HomeworkApplication {
 
     public static void main(String[] args) {
