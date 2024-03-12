@@ -20,16 +20,12 @@ public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "author")
     private String author;
 
-    @Column(name = "text")
     private String text;
 
-    @Column(name = "creation_date")
     @CreatedDate
     private LocalDateTime creationDate;
 

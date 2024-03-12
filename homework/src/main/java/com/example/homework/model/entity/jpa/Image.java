@@ -18,16 +18,12 @@ public class Image implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "filename")
     private String filename;
 
-    @Column(name = "size")
     private Long size;
 
-    @Column(name = "reference")
     private String reference;
 
 }
