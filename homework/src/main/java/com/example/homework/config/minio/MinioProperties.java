@@ -11,16 +11,16 @@ public class MinioProperties {
 
     private String url;
 
-    private int port;
+    private Integer port;
 
     private String accessKey;
 
     private String secretKey;
 
-    private boolean secure;
+    private Boolean secure;
 
     private String bucket;
 
-    private long imageSize;
+    private Long imageSize;
 
 }

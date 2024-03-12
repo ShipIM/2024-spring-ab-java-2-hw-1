@@ -34,7 +34,7 @@ public class MessageServiceImpl implements MessageService {
     @Audit(message = "message read", type = OperationType.READ)
     public Message getMessage(long id) {
         return messageRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("There is no message with such an id"));
+                .orElseThrow(() -> new EntityNotFoundException("there is no message with such an id"));
     }
 
     @CacheEvict(value = "MessageService::getMessages", allEntries = true)
@@ -48,7 +48,7 @@ public class MessageServiceImpl implements MessageService {
                     .collect(Collectors.toList()));
 
             if (message.getImages().size() != images.size()) {
-                throw new EntityNotFoundException("Some images were not found");
+                throw new EntityNotFoundException("some images were not found");
             }
 
             message.setImages(images);

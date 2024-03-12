@@ -12,7 +12,7 @@ import java.util.Map;
 public class MinioExceptionsHandler {
 
     @ExceptionHandler(value = ErrorResponseException.class)
-    public ResponseEntity<Map<String,String>> handleErrorResponseException(ErrorResponseException exception) {
+    public ResponseEntity<Map<String, String>> handleErrorResponseException(ErrorResponseException exception) {
         return new ResponseEntity<>(Map.of("error", exception.getMessage()), HttpStatus.NOT_FOUND);
     }
 

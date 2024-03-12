@@ -25,7 +25,7 @@ public class MessageController {
     }
 
     @QueryMapping
-    public ResponseMessage getMessage(@Argument long id) {
+    public ResponseMessage getMessage(@Argument Long id) {
         return mapper.toResponse(messageService.getMessage(id));
     }
 
