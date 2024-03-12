@@ -9,12 +9,12 @@ import lombok.Setter;
 @Setter
 public class AuthenticateUser {
 
-    @Size(min = 1, max = 16, message = "Неправильный размер login")
-    @NotBlank(message = "login не должен быть пустым")
+    @Size(min = 1, max = 16, message = "incorrect username size")
+    @NotBlank(message = "username must not be empty")
     private String username;
 
-    @Size(min = 8, max = 16, message = "Неправильный размер пароля")
-    @NotBlank(message = "Пароль не должен быть пустым")
+    @Size(min = 8, max = 16, message = "incorrect password size")
+    @NotBlank(message = "password must not be empty")
     private String password;
 
 }

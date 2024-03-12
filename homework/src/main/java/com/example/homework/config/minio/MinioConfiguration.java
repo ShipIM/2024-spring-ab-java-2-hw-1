@@ -20,7 +20,7 @@ public class MinioConfiguration {
                 .endpoint(
                         properties.getUrl(),
                         properties.getPort(),
-                        properties.isSecure())
+                        properties.getSecure())
                 .build();
 
         if (!client.bucketExists(

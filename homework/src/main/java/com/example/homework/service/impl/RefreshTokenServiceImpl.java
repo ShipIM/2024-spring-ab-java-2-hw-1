@@ -33,7 +33,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Audit(message = "refresh token read", type = OperationType.READ)
     public RefreshToken getToken(User user) {
         return refreshTokenRepository.findByUser(user)
-                .orElseThrow(() -> new EntityNotFoundException("There is no token for this user"));
+                .orElseThrow(() -> new EntityNotFoundException("there is no token for this user"));
     }
 
     @CacheEvict(value = "RefreshTokenService::getToken", allEntries = true)
@@ -41,7 +41,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Transactional
     public void deleteToken(String refresh) {
         if (!refreshTokenRepository.existsByToken(refresh)) {
-            throw new EntityNotFoundException("There is no such token");
+            throw new EntityNotFoundException("there is no such token");
         }
 
         refreshTokenRepository.deleteByToken(refresh);

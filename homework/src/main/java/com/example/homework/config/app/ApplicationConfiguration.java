@@ -11,7 +11,7 @@ public class ApplicationConfiguration {
     @Bean
     public Map<String, String> violationsMap() {
         return Map.of(
-                "users_username_key", "A user with that name already exists"
+                "users_username_key", "user with that name already exists"
         );
     }
 

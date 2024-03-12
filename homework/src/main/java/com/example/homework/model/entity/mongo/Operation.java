@@ -18,16 +18,12 @@ import java.time.LocalDateTime;
 public class Operation implements Serializable {
 
     @Id
-    @Field("id")
     private String id;
 
-    @Field("operation_type")
     private OperationType type;
 
-    @Field("message")
     private String message;
 
-    @Field("execution_time")
     private LocalDateTime time;
 
 }

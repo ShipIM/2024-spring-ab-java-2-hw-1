@@ -32,36 +32,38 @@ public class JwtUtils {
     private Long refreshExpiration;
 
     public String generateAccessToken(Map<String, Object> extraClaims, User user) {
-        LocalDateTime now = LocalDateTime.now();
-        Instant accessExpirationInstant = now.plusSeconds(accessExpiration)
-                .atZone(ZoneId.systemDefault()).toInstant();
-        Date accessExpirationDate = Date.from(accessExpirationInstant);
+        Date expirationDate = calculateDate(accessExpiration);
 
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(user.getUsername())
-                .setExpiration(accessExpirationDate)
+                .setExpiration(expirationDate)
                 .signWith(getSignInKey(access), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String generateRefreshToken(User user) {
-        LocalDateTime now = LocalDateTime.now();
-        Instant refreshExpirationInstant = now.plusSeconds(refreshExpiration)
-                .atZone(ZoneId.systemDefault()).toInstant();
-        Date refreshExpirationDate = Date.from(refreshExpirationInstant);
+        Date expirationDate = calculateDate(refreshExpiration);
 
         return Jwts
                 .builder()
                 .setSubject(user.getUsername())
-                .setExpiration(refreshExpirationDate)
+                .setExpiration(expirationDate)
                 .signWith(getSignInKey(refresh), SignatureAlgorithm.HS256)
                 .compact();
     }
 
+    private Date calculateDate(Long expiration) {
+        LocalDateTime now = LocalDateTime.now();
+        Instant expirationInstant = now.plusSeconds(expiration)
+                .atZone(ZoneId.systemDefault()).toInstant();
+
+       return Date.from(expirationInstant);
+    }
+
     public Key getSignInKey(String key) {
-        byte[] keyBytes = Decoders.BASE64.decode(access);
+        byte[] keyBytes = Decoders.BASE64.decode(key);
 
         return Keys.hmacShaKeyFor(keyBytes);
     }
@@ -110,13 +112,13 @@ public class JwtUtils {
 
             return true;
         } catch (ExpiredJwtException expEx) {
-            log.error("Token expired", expEx);
+            log.error("token expired", expEx);
         } catch (UnsupportedJwtException unsEx) {
-            log.error("Unsupported jwt", unsEx);
+            log.error("unsupported jwt", unsEx);
         } catch (MalformedJwtException mjEx) {
-            log.error("Malformed jwt", mjEx);
+            log.error("malformed jwt", mjEx);
         } catch (Exception e) {
-            log.error("Invalid token", e);
+            log.error("invalid token", e);
         }
 
         return false;

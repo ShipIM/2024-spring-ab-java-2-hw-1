@@ -29,8 +29,7 @@ public class AccessController {
             MultipartFile file
     ) throws Exception {
         String reference = minioService.upload(file);
-        Image image = mapper.toImage(file);
-        image.setReference(reference);
+        Image image = mapper.toImage(file, reference);
 
         image = imageService.saveMeta(image);
 

@@ -12,7 +12,7 @@ import java.util.List;
 public interface ImageMapper {
 
     @Mapping(target = "filename", expression = "java(file.getOriginalFilename())")
-    Image toImage(MultipartFile file);
+    Image toImage(MultipartFile file, String reference);
 
     ResponseImage toResponse(Image image);
 

@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
     @Audit(message = "role read", type = OperationType.READ)
     public Role getRole(String name) {
         return roleRepository.findRoleByName(name)
-                .orElseThrow(() -> new EntityNotFoundException("There is no role with such name"));
+                .orElseThrow(() -> new EntityNotFoundException("there is no role with such name"));
     }
 
 }

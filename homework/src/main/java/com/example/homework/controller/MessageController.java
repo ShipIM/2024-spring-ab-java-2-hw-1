@@ -1,6 +1,7 @@
 package com.example.homework.controller;
 
 import com.example.homework.dto.mapper.MessageMapper;
+import com.example.homework.dto.mapper.UserMapper;
 import com.example.homework.dto.message.CreateMessage;
 import com.example.homework.dto.message.ResponseMessage;
 import com.example.homework.model.entity.jpa.Message;
@@ -21,30 +22,28 @@ import java.util.List;
 public class MessageController {
 
     private final MessageService messageService;
-    private final MessageMapper mapper;
+    private final MessageMapper messageMapper;
+    private final UserMapper userMapper;
 
     @QueryMapping
     @PreAuthorize("hasAuthority('MESSAGE_READ_PRIVILEGE')")
     public List<ResponseMessage> getMessages() {
-        return mapper.toResponseList(messageService.getMessages());
+        return messageMapper.toResponseList(messageService.getMessages());
     }
 
     @QueryMapping
     @PreAuthorize("hasAuthority('MESSAGE_READ_PRIVILEGE')")
-    public ResponseMessage getMessage(@Argument long id) {
-        return mapper.toResponse(messageService.getMessage(id));
+    public ResponseMessage getMessage(@Argument Long id) {
+        return messageMapper.toResponse(messageService.getMessage(id));
     }
 
     @MutationMapping
     @PreAuthorize("hasAuthority('MESSAGE_WRITE_PRIVILEGE')")
     public ResponseMessage createMessage(@Argument CreateMessage message, Principal principal) {
-        Message entity = mapper.toMessage(message);
+        User user = userMapper.mapToUser(principal);
+        Message entity = messageMapper.toMessage(message, user);
 
-        User user = new User();
-        user.setUsername(principal.getName());
-        entity.setAuthor(user);
-
-        return mapper.toResponse(messageService.createMessage(entity));
+        return messageMapper.toResponse(messageService.createMessage(entity));
     }
 
 }

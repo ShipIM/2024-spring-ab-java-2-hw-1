@@ -23,21 +23,18 @@ public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
 
-    @Column(name = "text")
     private String text;
 
-    @Column(name = "creation_date")
     @CreatedDate
     private LocalDateTime creationDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "messages_images",
             joinColumns = {@JoinColumn(name = "message_id")},
             inverseJoinColumns = {@JoinColumn(name = "image_id")})

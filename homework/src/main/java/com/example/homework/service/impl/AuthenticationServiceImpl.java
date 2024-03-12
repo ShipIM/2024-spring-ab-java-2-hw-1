@@ -55,17 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public ResponseJwt getAccessToken(String refresh) {
-        if (!jwtUtils.isRefreshTokenValid(refresh)) {
-            throw new InvalidJwtException("Invalid refresh token");
-        }
-
-        String username = jwtUtils.extractRefreshUsername(refresh);
-        User user = (User) detailsService.loadUserByUsername(username);
-        RefreshToken savedRefresh = refreshTokenService.getToken(user);
-
-        if (!savedRefresh.getToken().equals(refresh)) {
-            throw new InvalidJwtException("Mismatch saved refresh token");
-        }
+        User user = extractUser(refresh);
 
         String access = generateAccessToken(user);
 
@@ -73,17 +63,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public ResponseJwt refreshToken(String refresh) {
-        if (!jwtUtils.isRefreshTokenValid(refresh)) {
-            throw new InvalidJwtException("Invalid refresh token");
-        }
-
-        String username = jwtUtils.extractRefreshUsername(refresh);
-        User user = (User) detailsService.loadUserByUsername(username);
-        RefreshToken savedRefresh = refreshTokenService.getToken(user);
-
-        if (!savedRefresh.getToken().equals(refresh)) {
-            throw new InvalidJwtException("Mismatch saved refresh token");
-        }
+        User user = extractUser(refresh);
 
         String updatedRefresh = generateRefreshToken(user);
         String updatedAccess = generateAccessToken(user);
@@ -108,6 +88,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         refreshTokenService.setToken(user, token);
 
         return token;
+    }
+
+    private User extractUser(String refresh) {
+        if (!jwtUtils.isRefreshTokenValid(refresh)) {
+            throw new InvalidJwtException("invalid refresh token");
+        }
+
+        String username = jwtUtils.extractRefreshUsername(refresh);
+        User user = (User) detailsService.loadUserByUsername(username);
+        RefreshToken savedRefresh = refreshTokenService.getToken(user);
+
+        if (!savedRefresh.getToken().equals(refresh)) {
+            throw new InvalidJwtException("mismatch saved refresh token");
+        }
+
+        return user;
     }
 
 }

@@ -22,7 +22,7 @@ public class DetailsServiceImpl implements DetailsService {
     @Audit(message = "user read", type = OperationType.READ)
     public UserDetails loadUserByUsername(String username){
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("There is no user with that name"));
+                .orElseThrow(() -> new EntityNotFoundException("there is no user with that name"));
     }
 
     @Audit(message = "user saved", type = OperationType.WRITE)

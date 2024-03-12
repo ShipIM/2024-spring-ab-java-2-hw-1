@@ -36,7 +36,7 @@ public class ImageServiceImpl implements ImageService {
     @Audit(message = "meta read", type = OperationType.READ)
     public Image getMeta(String reference) {
         return imageRepository.findByReference(reference)
-                .orElseThrow(() -> new EntityNotFoundException("There is no file with such a reference"));
+                .orElseThrow(() -> new EntityNotFoundException("there is no file with such a reference"));
     }
 
 }

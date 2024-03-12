@@ -43,7 +43,7 @@ public class EntityNotFoundExceptionResolver extends DataFetcherExceptionResolve
                     .filter(entry -> ex.getMessage().contains(entry.getKey()))
                     .map(Map.Entry::getValue)
                     .findAny()
-                    .orElse("An unexpected exception has occurred");
+                    .orElse("unexpected exception has occurred");
 
             return graphqlErrorBuilder
                     .message(message)
