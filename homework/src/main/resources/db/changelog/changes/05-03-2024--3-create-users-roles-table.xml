@@ -11,12 +11,12 @@
             </column>
             <column name="user_id" type="BIGINT">
                 <constraints
-                        foreignKeyName="fk_messages" references="users(id)"
+                        foreignKeyName="fk_users_roles_users" references="users(id)"
                         nullable="false"/>
             </column>
             <column name="role_id" type="BIGINT">
                 <constraints
-                        foreignKeyName="fk_images" references="roles(id)"
+                        foreignKeyName="fk_users_roles_roles" references="roles(id)"
                         nullable="false"/>
             </column>
         </createTable>
