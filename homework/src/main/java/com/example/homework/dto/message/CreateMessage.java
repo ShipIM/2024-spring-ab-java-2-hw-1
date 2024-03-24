@@ -9,8 +9,6 @@ import java.util.List;
 @Setter
 public class CreateMessage {
 
-    private String author;
-
     private String text;
 
     private List<String> images;

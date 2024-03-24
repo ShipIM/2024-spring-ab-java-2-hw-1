@@ -20,8 +20,5 @@
                         nullable="false"/>
             </column>
         </createTable>
-        <rollback>
-            <dropTable tableName="messages_images"/>
-        </rollback>
     </changeSet>
 </databaseChangeLog>

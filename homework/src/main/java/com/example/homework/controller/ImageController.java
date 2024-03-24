@@ -6,6 +6,7 @@ import com.example.homework.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class ImageController {
     private final ImageService service;
 
     @QueryMapping
+    @PreAuthorize("hasAuthority('META_READ_PRIVILEGE')")
     public List<ResponseImage> getMetas() {
         return service.getAllMeta();
     }
 
     @QueryMapping
+    @PreAuthorize("hasAuthority('META_READ_PRIVILEGE')")
     public ResponseImage getMeta(@Argument String reference) {
         return service.getMeta(reference);
     }

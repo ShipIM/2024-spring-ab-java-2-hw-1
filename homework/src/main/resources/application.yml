@@ -44,3 +44,12 @@ minio:
   secure: false
   bucket: minio-storage
   image-size: 10485760
+
+jwt:
+  secret:
+    access:
+      key: B6E5061FADAD40CCAEBDD0F4B3EB3DEE3F4FCE86695FA0076BA9E0A894A53140
+      expiration: 300
+    refresh:
+      key: 6cc6e57d734e612ff0c4c24aec8eef175ef34befc6c52ca73e82ba695d2c69c4
+      expiration: 600

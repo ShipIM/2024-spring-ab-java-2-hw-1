@@ -3,21 +3,18 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet author="ShipIM" id="15-02-2024--1-create-messages-table">
-        <createTable tableName="messages">
+    <changeSet author="ShipIM" id="01-03-2024--1-create-users-table">
+        <createTable tableName="users">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints
                         primaryKey="true"/>
             </column>
-            <column name="author_id" type="BIGINT">
+            <column name="username" type="VARCHAR">
                 <constraints
-                        nullable="false"/>
+                        nullable="false"
+                        unique="true"/>
             </column>
-            <column name="text" type="VARCHAR">
-                <constraints
-                        nullable="false"/>
-            </column>
-            <column name="creation_date" type="TIMESTAMP">
+            <column name="password" type="VARCHAR">
                 <constraints
                         nullable="false"/>
             </column>

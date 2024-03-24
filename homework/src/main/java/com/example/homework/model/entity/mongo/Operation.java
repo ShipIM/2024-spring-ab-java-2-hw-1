@@ -1,8 +1,8 @@
 package com.example.homework.model.entity.mongo;
 
+import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import jakarta.persistence.Id;
 import lombok.*;
-import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
