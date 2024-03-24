@@ -15,16 +15,15 @@ import java.util.List;
 public class ImageController {
 
     private final ImageService service;
-    private final ImageMapper mapper;
 
     @QueryMapping
     public List<ResponseImage> getMetas() {
-        return mapper.toResponseList(service.getAllMeta());
+        return service.getAllMeta();
     }
 
     @QueryMapping
     public ResponseImage getMeta(@Argument String reference) {
-        return mapper.toResponse(service.getMeta(reference));
+        return service.getMeta(reference);
     }
 
 }
