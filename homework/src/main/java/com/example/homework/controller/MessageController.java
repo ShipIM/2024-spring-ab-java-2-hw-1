@@ -37,6 +37,7 @@ public class MessageController {
         return messageMapper.toResponse(messageService.getMessage(id));
     }
 
+
     @MutationMapping
     @PreAuthorize("hasAuthority('MESSAGE_WRITE_PRIVILEGE')")
     public ResponseMessage createMessage(@Argument CreateMessage message, Principal principal) {

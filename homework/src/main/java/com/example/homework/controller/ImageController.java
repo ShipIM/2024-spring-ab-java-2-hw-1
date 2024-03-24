@@ -16,18 +16,17 @@ import java.util.List;
 public class ImageController {
 
     private final ImageService service;
-    private final ImageMapper mapper;
 
     @QueryMapping
     @PreAuthorize("hasAuthority('META_READ_PRIVILEGE')")
     public List<ResponseImage> getMetas() {
-        return mapper.toResponseList(service.getAllMeta());
+        return service.getAllMeta();
     }
 
     @QueryMapping
     @PreAuthorize("hasAuthority('META_READ_PRIVILEGE')")
     public ResponseImage getMeta(@Argument String reference) {
-        return mapper.toResponse(service.getMeta(reference));
+        return service.getMeta(reference);
     }
 
 }

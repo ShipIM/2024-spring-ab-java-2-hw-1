@@ -17,10 +17,7 @@
                 <constraints
                         nullable="false"/>
             </column>
-            <column name="reference" type="VARCHAR">
-                <constraints
-                        nullable="false"/>
-            </column>
+            <column name="reference" type="VARCHAR"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

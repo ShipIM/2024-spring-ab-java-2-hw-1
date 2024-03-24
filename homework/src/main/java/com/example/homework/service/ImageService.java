@@ -1,15 +1,18 @@
 package com.example.homework.service;
 
-import com.example.homework.model.entity.jpa.Image;
+import com.example.homework.dto.image.ResponseImage;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface ImageService {
 
-    Image saveMeta(Image image);
+    List<ResponseImage> getAllMeta();
 
-    List<Image> getAllMeta();
+    ResponseImage getMeta(String reference);
 
-    Image getMeta(String reference);
+    ResponseImage saveImage(MultipartFile file) throws Exception;
+
+    byte[] download(String reference) throws Exception;
 
 }
