@@ -2,6 +2,7 @@ package com.example.homework.service.impl;
 
 import com.example.homework.annotation.Audit;
 import com.example.homework.config.minio.MinioProperties;
+import com.example.homework.exception.UncheckedMinioException;
 import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import com.example.homework.service.MinioService;
 import io.minio.GetObjectArgs;
@@ -24,31 +25,37 @@ public class MinioServiceImpl implements MinioService {
     private final MinioProperties properties;
 
     @Audit(message = "image saved", type = OperationType.WRITE)
-    public String upload(MultipartFile file, String reference) throws Exception {
-        InputStream stream = new ByteArrayInputStream(file.getBytes());
-        client.putObject(
-                PutObjectArgs.builder()
-                        .bucket(properties.getBucket())
-                        .object(reference)
-                        .stream(stream, file.getSize(), properties.getImageSize())
-                        .contentType(file.getContentType())
-                        .build()
-        );
-
-        return reference;
+    public void upload(MultipartFile file, String reference) {
+        try {
+            InputStream stream = new ByteArrayInputStream(file.getBytes());
+            client.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(properties.getBucket())
+                            .object(reference)
+                            .stream(stream, file.getSize(), properties.getImageSize())
+                            .contentType(file.getContentType())
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new UncheckedMinioException(e.getMessage());
+        }
     }
 
     @Cacheable(value = "MinioService::download", key = "#reference")
     @Audit(message = "image downloaded", type = OperationType.READ)
-    public byte[] download(String reference) throws Exception {
-        return IOUtils.toByteArray(
-                client.getObject(
-                        GetObjectArgs.builder()
-                                .bucket(properties.getBucket())
-                                .object(reference)
-                                .build()
-                )
-        );
+    public byte[] download(String reference) {
+        try {
+            return IOUtils.toByteArray(
+                    client.getObject(
+                            GetObjectArgs.builder()
+                                    .bucket(properties.getBucket())
+                                    .object(reference)
+                                    .build()
+                    )
+            );
+        } catch (Exception e) {
+            throw new UncheckedMinioException(e.getMessage());
+        }
     }
 
 }

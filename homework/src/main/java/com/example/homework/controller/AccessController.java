@@ -18,14 +18,13 @@ public class AccessController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('IMAGE_UPLOAD_PRIVILEGE')")
-    public ResponseImage upload(@Valid @NotNull(message = "file must not be empty") MultipartFile file)
-            throws Exception {
+    public ResponseImage upload(@Valid @NotNull(message = "file must not be empty") MultipartFile file) {
         return imageService.saveImage(file);
     }
 
     @GetMapping("/{reference}")
     @PreAuthorize("hasAuthority('IMAGE_DOWNLOAD_PRIVILEGE')")
-    public byte[] download(@PathVariable String reference) throws Exception {
+    public byte[] download(@PathVariable String reference) {
         return imageService.download(reference);
     }
 

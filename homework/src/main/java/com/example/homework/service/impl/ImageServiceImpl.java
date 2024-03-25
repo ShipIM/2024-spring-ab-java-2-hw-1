@@ -30,7 +30,7 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     @CacheEvict(value = "ImageService::getAllMeta", allEntries = true)
     @Audit(message = "meta saved", type = OperationType.WRITE)
-    public ResponseImage saveImage(MultipartFile multipartFile) throws Exception {
+    public ResponseImage saveImage(MultipartFile multipartFile) {
         String reference = UUID.randomUUID().toString();
 
         Image image = imageMapper.toImage(multipartFile, reference);
@@ -54,7 +54,7 @@ public class ImageServiceImpl implements ImageService {
                 .orElseThrow(() -> new EntityNotFoundException("there is no file with such a reference")));
     }
 
-    public byte[] download(String reference) throws Exception {
+    public byte[] download(String reference) {
         return minioService.download(reference);
     }
 
