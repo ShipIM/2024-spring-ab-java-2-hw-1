@@ -4,8 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface MinioService {
 
-    String upload(MultipartFile file, String reference) throws Exception;
+    void upload(MultipartFile file, String reference);
 
-    byte[] download(String reference) throws Exception;
+    byte[] download(String reference);
 
 }

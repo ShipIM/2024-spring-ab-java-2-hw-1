@@ -11,8 +11,8 @@ public interface ImageService {
 
     ResponseImage getMeta(String reference);
 
-    ResponseImage saveImage(MultipartFile file) throws Exception;
+    ResponseImage saveImage(MultipartFile file);
 
-    byte[] download(String reference) throws Exception;
+    byte[] download(String reference);
 
 }

@@ -16,13 +16,12 @@ public class AccessController {
     private final ImageService imageService;
 
     @PostMapping
-    public ResponseImage upload(@Valid @NotNull(message = "file must not be empty") MultipartFile file)
-            throws Exception {
+    public ResponseImage upload(@Valid @NotNull(message = "file must not be empty") MultipartFile file) {
         return imageService.saveImage(file);
     }
 
     @GetMapping("/{reference}")
-    public byte[] download(@PathVariable String reference) throws Exception {
+    public byte[] download(@PathVariable String reference) {
         return imageService.download(reference);
     }
 
