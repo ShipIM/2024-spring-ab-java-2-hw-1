@@ -1,29 +1,15 @@
 package com.example.homework.service;
 
-import com.example.homework.entity.Message;
-import com.example.homework.repository.MessageRepository;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.homework.model.entity.jpa.Message;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class MessageService {
+public interface MessageService {
 
-    private final MessageRepository repository;
+    List<Message> getMessages();
 
-    public List<Message> getMessages() {
-        return repository.findAll();
-    }
+    Message getMessage(long id);
 
-    public Message getMessage(long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("There is no message with such an id"));
-    }
+    Message createMessage(Message message);
 
-    public Message createMessage(Message message) {
-        return repository.save(message);
-    }
 }

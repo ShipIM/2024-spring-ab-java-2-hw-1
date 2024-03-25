@@ -11,8 +11,14 @@ services:
       - "8080:8080"
     depends_on:
       - 'postgres'
+      - 'minio'
+      - 'mongodb'
+      - 'redis'
     environment:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://java-postgres:5432/homework'
+      - 'SPRING_DATA_REDIS_HOST=redis'
+      - 'SPRING_DATA_MONGODB_HOST=mongo'
+      - 'MINIO_URL=http://minio:9000'
   postgres:
     image: 'postgres:latest'
     container_name: 'java-postgres'
@@ -23,3 +29,27 @@ services:
       - 'POSTGRES_PASSWORD=postgres'
       - 'POSTGRES_HOST_AUTH_METHOD=trust'
       - 'POSTGRES_DB=homework'
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      - 'MINIO_ROOT_USER=user'
+      - 'MINIO_ROOT_PASSWORD=password'
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address :9001
+  mongodb:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - 'MONGO_INITDB_DATABASE=homework'
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --logLevel warning --requirepass password

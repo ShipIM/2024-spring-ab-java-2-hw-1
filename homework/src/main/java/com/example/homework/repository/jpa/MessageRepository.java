@@ -1,6 +1,6 @@
-package com.example.homework.repository;
+package com.example.homework.repository.jpa;
 
-import com.example.homework.entity.Message;
+import com.example.homework.model.entity.jpa.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
