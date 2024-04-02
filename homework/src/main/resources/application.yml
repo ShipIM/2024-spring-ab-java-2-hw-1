@@ -1,23 +1,46 @@
 server:
-    port: 8080
+  port: 8080
 
 spring:
-    liquibase:
-        change-log: classpath:/db/changelog/changelog-master.xml
-    datasource:
-        url: jdbc:postgresql://localhost:5432/homework
-        username: postgres
-        password: postgres
-        driver-class-name: org.postgresql.Driver
-    jpa:
-        hibernate:
-            ddl-auto: validate
-        show-sql: true
-        properties:
-            hibernate:
-                format_sql: true
-        database: postgresql
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
-    graphql:
-        graphiql:
-            enabled: true
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/homework
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  graphql:
+    graphiql:
+      enabled: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: homework
+    redis:
+      host: localhost
+      port: 6379
+      password: password
+  cache:
+    type: redis
+    cache-names: redis-cache
+    redis:
+      time-to-live: 30000
+
+minio:
+  url: http://localhost:9000
+  port: 9000
+  accessKey: user
+  secretKey: password
+  secure: false
+  bucket: minio-storage
+  image-size: 10485760

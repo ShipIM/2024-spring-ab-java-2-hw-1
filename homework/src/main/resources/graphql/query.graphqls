@@ -1,18 +1,40 @@
 type ResponseMessage {
-    id: Int!,
-    author: String!,
-    text: String!,
-    creationDate: String!
+    id: Int,
+    author: String,
+    text: String,
+    creationDate: String,
+    images: [ResponseImage]
+}
+
+type ResponseImage {
+    filename: String,
+    size: Int,
+    reference: String
+}
+
+input OperationFilter {
+    type: String,
+    time: String
+}
+
+type ResponseOperation {
+    type: String,
+    message: String,
+    time: String
 }
 
 input CreateMessage {
     author: String!,
-    text: String!
+    text: String!,
+    images: [String]
 }
 
 type Query {
-    getMessages: [ResponseMessage]
-    getMessage(id: Int!): ResponseMessage
+    getMessages: [ResponseMessage],
+    getMessage(id: Int!): ResponseMessage,
+    getMetas: [ResponseImage],
+    getMeta(reference: String!): ResponseImage,
+    getOperations(filter: OperationFilter): [ResponseOperation]
 }
 
 type Mutation {
