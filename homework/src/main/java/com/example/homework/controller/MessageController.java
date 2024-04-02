@@ -1,7 +1,7 @@
 package com.example.homework.controller;
 
-import com.example.homework.dto.CreateMessage;
-import com.example.homework.dto.ResponseMessage;
+import com.example.homework.dto.message.CreateMessage;
+import com.example.homework.dto.message.ResponseMessage;
 import com.example.homework.dto.mapper.MessageMapper;
 import com.example.homework.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class MessageController {
     }
 
     @QueryMapping
-    public ResponseMessage getMessage(@Argument long id) {
+    public ResponseMessage getMessage(@Argument Long id) {
         return mapper.toResponse(messageService.getMessage(id));
     }
 
@@ -33,4 +33,5 @@ public class MessageController {
     public ResponseMessage createMessage(@Argument CreateMessage message) {
         return mapper.toResponse(messageService.createMessage(mapper.toMessage(message)));
     }
+
 }
