@@ -19,8 +19,5 @@
             </column>
             <column name="reference" type="VARCHAR"/>
         </createTable>
-        <rollback>
-            <dropTable tableName="images"/>
-        </rollback>
     </changeSet>
 </databaseChangeLog>

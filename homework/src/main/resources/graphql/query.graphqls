@@ -24,9 +24,18 @@ type ResponseOperation {
 }
 
 input CreateMessage {
-    author: String!,
     text: String!,
     images: [String]
+}
+
+input AuthenticateUser {
+    username: String!,
+    password: String!
+}
+
+type ResponseJwt {
+    access: String,
+    refresh: String
 }
 
 type Query {
@@ -35,8 +44,13 @@ type Query {
     getMetas: [ResponseImage],
     getMeta(reference: String!): ResponseImage,
     getOperations(filter: OperationFilter): [ResponseOperation]
+    authenticate(details: AuthenticateUser!): ResponseJwt
 }
 
 type Mutation {
     createMessage(message: CreateMessage!): ResponseMessage
+    register(details: AuthenticateUser!): ResponseJwt,
+    access(refresh: String!): ResponseJwt,
+    refresh(refresh: String!): ResponseJwt,
+    eraseRefresh(refresh: String!): Boolean
 }

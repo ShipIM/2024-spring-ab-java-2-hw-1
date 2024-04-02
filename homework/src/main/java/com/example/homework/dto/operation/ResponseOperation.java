@@ -1,8 +1,8 @@
 package com.example.homework.dto.operation;
 
+import com.example.homework.model.entity.mongo.enumeration.OperationType;
 import lombok.Getter;
 import lombok.Setter;
-import com.example.homework.model.entity.mongo.enumeration.OperationType;
 
 import java.time.LocalDateTime;
 

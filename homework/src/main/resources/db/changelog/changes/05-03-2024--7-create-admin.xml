@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="ShipIM" id="01-03-2024--6-create-admin">
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$1i8k1J5ame6PHfPG0AeX1ewNiTD2SiN5WmOgMK0gYffkbhf2E5JT."/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

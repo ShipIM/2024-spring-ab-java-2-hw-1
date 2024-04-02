@@ -8,7 +8,7 @@ public interface MessageService {
 
     List<Message> getMessages();
 
-    Message getMessage(long id);
+    Message getMessage(Long id);
 
     Message createMessage(Message message);
 
